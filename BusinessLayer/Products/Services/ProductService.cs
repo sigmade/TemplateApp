@@ -25,11 +25,11 @@ namespace BusinessLayer.Products.Services
         {
             var products = await _productDataProvider.GetAll();
             return products
-                .Select(p => new ProductResponseDto 
-                { 
+                .Select(p => new ProductResponseDto
+                {
                     Name = p.Name,
-                    Description = p.Description, 
-                    CreatedDate = p.CreatedDate 
+                    Description = p.Description,
+                    CreatedDate = p.CreatedDate
                 }).ToList();
         }
     }

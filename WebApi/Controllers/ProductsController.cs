@@ -35,8 +35,9 @@ namespace WebApi.Controllers
             }
             catch (Exception ex)
             {
-                _logger.Error($"{nameof(AddNewProduct)} failed: {ex.Message}");
-                throw new Exception(ex.Message);
+                var errorId = new Random().Next(100, 99999);
+                _logger.Error($"{nameof(AddNewProduct)} failed. ErrorId: {errorId}. {ex.Message}");
+                throw new Exception($"Ошибка операции. Код {errorId}");
             }
             return NoContent();
         }
@@ -53,10 +54,10 @@ namespace WebApi.Controllers
             }
             catch (Exception ex)
             {
-                _logger.Error($"{nameof(GetAllProducts)} failed: {ex.Message}");
-                throw new Exception(ex.Message);
+                var errorId = new Random().Next(100, 99999);
+                _logger.Error($"{nameof(GetAllProducts)} failed. ErrorId: {errorId}. {ex.Message}");
+                throw new Exception($"Ошибка операции. Код {errorId}");
             }
-
             return Ok(products);
         }
     }
