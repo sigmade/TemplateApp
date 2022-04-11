@@ -1,0 +1,42 @@
+﻿version: "3.0"
+services:
+  elasticsearch:
+    container_name: es-container
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.11.0
+    environment:
+      - xpack.security.enabled=false
+      - "discovery.type=single-node"
+    networks:
+      - es-net
+    ports:
+      - 9200:9200
+  kibana:
+    container_name: kb-container
+    image: docker.elastic.co/kibana/kibana:7.11.0
+    environment:
+      - ELASTICSEARCH_HOSTS=http://es-container:9200
+    networks:
+      - es-net
+    depends_on:
+      - elasticsearch
+    ports:
+      - 5601:5601
+  prometheus:
+    image: ubuntu/prometheus
+    container_name: dev_prometheus
+    ports:
+      - "30090:9090"
+    environment:
+      - TZ=UTC
+    volumes:
+      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+  grafana:
+    image: grafana/grafana
+    container_name: dev_grafana
+    ports:
+      - "30091:3000"
+    volumes:
+      - ./monitoring/grafana-data/data:/var/lib/grafana
+networks:
+  es-net:
+    driver: bridge

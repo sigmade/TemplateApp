@@ -9,21 +9,32 @@ namespace WebApi.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IProductService _productService;
+        private readonly Serilog.ILogger _logger;
 
-        public ProductsController(IProductService productService)
+        public ProductsController(
+            IProductService productService,
+            Serilog.ILogger logger)
         {
             _productService = productService;
+            _logger = logger;
         }
 
         [HttpPost]
         public async Task<IActionResult> AddNewProduct(AddProductRequest request)
         {
-            await _productService.AddNew(new()
+            try
             {
-                Name = request.Name,
-                Description = request.Description
-            });
-
+                await _productService.AddNew(new()
+                {
+                    Name = request.Name,
+                    Description = request.Description
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.Error($"AddNewProduct failed: {ex.Message}");
+                throw new Exception(ex.Message);
+            }
             return NoContent();
         }
     }
