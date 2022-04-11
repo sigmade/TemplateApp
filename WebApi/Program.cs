@@ -13,7 +13,7 @@ builder.Host
     {
         configuration.Enrich.FromLogContext()
              .Enrich.WithMachineName()
-             .WriteTo.File(new RenderedCompactJsonFormatter(), "Logs/logs.json")
+             .WriteTo.File(new RenderedCompactJsonFormatter(), "monitoring/Logs/logs.json")
              .WriteTo.Console()
              .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri("http://localhost:9200"))
              {
