@@ -1,5 +1,7 @@
-﻿using BusinessLayer.Products.Services;
+﻿using BusinessLayer.Products.Models;
+using BusinessLayer.Products.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using WebApi.Models.Product;
 
 namespace WebApi.Controllers
@@ -20,6 +22,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
         public async Task<IActionResult> AddNewProduct(AddProductRequest request)
         {
             try
@@ -32,10 +35,29 @@ namespace WebApi.Controllers
             }
             catch (Exception ex)
             {
-                _logger.Error($"AddNewProduct failed: {ex.Message}");
+                _logger.Error($"{nameof(AddNewProduct)} failed: {ex.Message}");
                 throw new Exception(ex.Message);
             }
             return NoContent();
+        }
+
+        [HttpGet]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ProductResponseDto))]
+        public async Task<IActionResult> GetAllProducts()
+        {
+            List<ProductResponseDto>? products;
+
+            try
+            {
+                products = await _productService.GetAll();
+            }
+            catch (Exception ex)
+            {
+                _logger.Error($"{nameof(GetAllProducts)} failed: {ex.Message}");
+                throw new Exception(ex.Message);
+            }
+
+            return Ok(products);
         }
     }
 }

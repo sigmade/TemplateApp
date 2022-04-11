@@ -20,5 +20,17 @@ namespace BusinessLayer.Products.Services
                 Description = product.Description
             });
         }
+
+        public async Task<List<ProductResponseDto>> GetAll()
+        {
+            var products = await _productDataProvider.GetAll();
+            return products
+                .Select(p => new ProductResponseDto 
+                { 
+                    Name = p.Name,
+                    Description = p.Description, 
+                    CreatedDate = p.CreatedDate 
+                }).ToList();
+        }
     }
 }
