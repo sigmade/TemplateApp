@@ -12,14 +12,14 @@ namespace WebApi.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IProductService _productService;
-        private readonly Serilog.ILogger _logger;
+        private readonly ErrorHandler _error;
 
         public ProductsController(
             IProductService productService,
-            Serilog.ILogger logger)
+            ErrorHandler error)
         {
             _productService = productService;
-            _logger = logger;
+            _error = error;
         }
 
         [HttpPost]
@@ -37,9 +37,7 @@ namespace WebApi.Controllers
             }
             catch (Exception ex)
             {
-                var errorId = Error.Id();
-                _logger.Error(Error.LogMessage(nameof(AddNewProduct), errorId, ex));
-                return StatusCode(500, Error.Display(errorId));
+                return StatusCode(500, _error.Display(nameof(AddNewProduct), ex));
             }
             return NoContent();
         }
@@ -57,9 +55,7 @@ namespace WebApi.Controllers
             }
             catch (Exception ex)
             {
-                var errorId = Error.Id();
-                _logger.Error(Error.LogMessage(nameof(AddNewProduct), errorId, ex));
-                return StatusCode(500, Error.Display(errorId));
+                return StatusCode(500, _error.Display(nameof(GetAllProducts), ex));
             }
             return Ok(products);
         }
