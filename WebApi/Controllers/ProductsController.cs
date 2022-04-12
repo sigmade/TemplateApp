@@ -22,6 +22,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(500)]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         public async Task<IActionResult> AddNewProduct(AddProductRequest request)
         {
@@ -43,6 +44,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(500)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ProductResponseDto))]
         public async Task<IActionResult> GetAllProducts()
         {
