@@ -3,6 +3,7 @@ using BusinessLayer.Products.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using WebApi.Models.Product;
+using WebApi.monitoring.Models;
 
 namespace WebApi.Controllers
 {
@@ -36,9 +37,9 @@ namespace WebApi.Controllers
             }
             catch (Exception ex)
             {
-                var errorId = new Random().Next(100, 99999);
-                _logger.Error($"{nameof(AddNewProduct)} failed. ErrorId: {errorId}. {ex.Message}");
-                return StatusCode(500, $"Ошибка операции. Код {errorId}");
+                var errorId = Error.Id();
+                _logger.Error(Error.LogMessage(nameof(AddNewProduct), errorId, ex));
+                return StatusCode(500, Error.Display(errorId));
             }
             return NoContent();
         }
@@ -56,9 +57,9 @@ namespace WebApi.Controllers
             }
             catch (Exception ex)
             {
-                var errorId = new Random().Next(100, 99999);
-                _logger.Error($"{nameof(GetAllProducts)} failed. ErrorId: {errorId}. {ex.Message}");
-                return StatusCode(500, $"Ошибка операции. Код {errorId}");
+                var errorId = Error.Id();
+                _logger.Error(Error.LogMessage(nameof(AddNewProduct), errorId, ex));
+                return StatusCode(500, Error.Display(errorId));
             }
             return Ok(products);
         }

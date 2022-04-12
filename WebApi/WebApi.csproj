@@ -27,6 +27,7 @@
 
   <ItemGroup>
     <Folder Include="monitoring\grafana-data\" />
+    <Folder Include="monitoring\Logs\" />
   </ItemGroup>
 
 </Project>
