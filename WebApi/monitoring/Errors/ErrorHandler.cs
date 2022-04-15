@@ -1,4 +1,4 @@
-﻿namespace WebApi.monitoring.Models
+﻿namespace WebApi.monitoring.Errors
 {
     public class ErrorHandler
     {
@@ -14,11 +14,17 @@
             return new Random().Next(100, 99999);
         }
 
-        public string Display(string methodName, Exception exception)
+        public string DefaultHandle(string methodName, Exception exception)
         {
             var errorId = Id();
             _logger.Error($"{methodName} failed. ErrorId: {errorId}. Message: {exception.Message}. Trace: {exception.StackTrace}");
             return $"Ошибка операции. Код {errorId}";
+        }
+
+        public string DisabledService(string methodName)
+        {
+            _logger.Information($"Call disabled service in: {methodName}");
+            return $"Сервис временно не доступен попробуйте позже";
         }
     }
 }

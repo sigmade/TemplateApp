@@ -1,9 +1,11 @@
 ﻿using BusinessLayer.Products.Models;
 using BusinessLayer.Products.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using System.Net;
 using WebApi.Models.Product;
-using WebApi.monitoring.Models;
+using WebApi.monitoring.Errors;
+using WebApi.monitoring.Switchers;
 
 namespace WebApi.Controllers
 {
@@ -13,13 +15,15 @@ namespace WebApi.Controllers
     {
         private readonly IProductService _productService;
         private readonly ErrorHandler _error;
-
+        private readonly IOptionsMonitor<ProductSwitchers> _productSwitchers;
         public ProductsController(
             IProductService productService,
-            ErrorHandler error)
+            ErrorHandler error,
+            IOptionsMonitor<ProductSwitchers> productSwitchers)
         {
             _productService = productService;
             _error = error;
+            _productSwitchers = productSwitchers;
         }
 
         [HttpPost]
@@ -27,6 +31,10 @@ namespace WebApi.Controllers
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         public async Task<IActionResult> AddNewProduct(AddProductRequest request)
         {
+            if (!_productSwitchers.CurrentValue.AddServiceEnabed)
+            {
+                return StatusCode(503, _error.DisabledService(nameof(AddNewProduct)));
+            }
             try
             {
                 await _productService.AddNew(new()
@@ -37,7 +45,7 @@ namespace WebApi.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, _error.Display(nameof(AddNewProduct), ex));
+                return StatusCode(500, _error.DefaultHandle(nameof(AddNewProduct), ex));
             }
             return NoContent();
         }
@@ -49,13 +57,17 @@ namespace WebApi.Controllers
         {
             List<ProductResponseDto>? products;
 
+            if (!_productSwitchers.CurrentValue.GetServiceEnabled)
+            {
+                return StatusCode(503, _error.DisabledService(nameof(GetAllProducts)));
+            }
             try
             {
                 products = await _productService.GetAll();
             }
             catch (Exception ex)
             {
-                return StatusCode(500, _error.Display(nameof(GetAllProducts), ex));
+                return StatusCode(500, _error.DefaultHandle(nameof(GetAllProducts), ex));
             }
             return Ok(products);
         }

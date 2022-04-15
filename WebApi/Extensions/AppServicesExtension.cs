@@ -1,5 +1,5 @@
 ﻿using BusinessLayer.Products.Services;
-using WebApi.monitoring.Models;
+using WebApi.monitoring.Errors;
 
 namespace WebApi.Extensions
 {

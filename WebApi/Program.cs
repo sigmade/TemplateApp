@@ -5,6 +5,7 @@ using Serilog;
 using Serilog.Formatting.Compact;
 using Serilog.Sinks.Elasticsearch;
 using WebApi.Extensions;
+using WebApi.monitoring.Switchers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +29,8 @@ builder.Host
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
+builder.Services.Configure<ProductSwitchers>(
+    builder.Configuration.GetSection("ProductSwitchers"));
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
