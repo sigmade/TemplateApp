@@ -2,7 +2,6 @@
 using BusinessLayer.Products.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using System.Net;
 using WebApi.Models.Product;
 using WebApi.monitoring.Errors;
 using WebApi.monitoring.Switchers;
@@ -14,22 +13,23 @@ namespace WebApi.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IProductService _productService;
-        private readonly ErrorHandler _error;
         private readonly IOptionsMonitor<ProductSwitchers> _productSwitchers;
+        private readonly ErrorHandler _error;
+
         public ProductsController(
             IProductService productService,
-            ErrorHandler error,
-            IOptionsMonitor<ProductSwitchers> productSwitchers)
+            IOptionsMonitor<ProductSwitchers> productSwitchers,
+            ErrorHandler error)
         {
             _productService = productService;
-            _error = error;
             _productSwitchers = productSwitchers;
+            _error = error;
         }
 
         [HttpPost]
         [ProducesResponseType(500)]
         [ProducesResponseType(503)]
-        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        [ProducesResponseType(204)]
         public async Task<IActionResult> AddNewProduct(AddProductRequest request)
         {
             if (!_productSwitchers.CurrentValue.AddServiceEnabed)
@@ -54,15 +54,14 @@ namespace WebApi.Controllers
         [HttpGet]
         [ProducesResponseType(500)]
         [ProducesResponseType(503)]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ProductResponseDto))]
+        [ProducesResponseType(200, Type = typeof(ProductResponseDto))]
         public async Task<IActionResult> GetAllProducts()
         {
-            List<ProductResponseDto>? products;
-
             if (!_productSwitchers.CurrentValue.GetServiceEnabled)
             {
                 return StatusCode(503, _error.DisabledService(nameof(GetAllProducts)));
             }
+            List<ProductResponseDto>? products;
             try
             {
                 products = await _productService.GetAll();

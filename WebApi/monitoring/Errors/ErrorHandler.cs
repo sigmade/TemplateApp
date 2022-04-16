@@ -24,7 +24,7 @@
         public string DisabledService(string methodName)
         {
             _logger.Information($"Call disabled service in: {methodName}");
-            return $"Сервис временно не доступен попробуйте позже";
+            return $"Сервис временно не доступен, попробуйте позже";
         }
     }
 }
