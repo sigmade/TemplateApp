@@ -29,10 +29,15 @@ builder.Host
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-builder.Services.Configure<ProductSwitchers>(
-    builder.Configuration.GetSection("ProductSwitchers"));
+builder.Services.Configure<ProductSwitchers>(builder.Configuration.GetSection("ProductSwitchers"));
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
+
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = "localhost:6379";
+});
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
