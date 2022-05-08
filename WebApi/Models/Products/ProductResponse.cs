@@ -1,9 +1,9 @@
-﻿namespace BusinessLayer.Products.Models
+﻿namespace WebApi.Models.Products
 {
     /// <summary>
     /// Модель отображения продуктов в списке
     /// </summary>
-    public class ProductResponseDto
+    public class ProductResponse
     {
         /// <summary>
         /// Наименование

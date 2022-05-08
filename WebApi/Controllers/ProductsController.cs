@@ -2,12 +2,15 @@
 using BusinessLayer.Products.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using WebApi.Models.Product;
+using WebApi.Models.Products;
 using WebApi.monitoring.Errors;
 using WebApi.monitoring.Switchers;
 
 namespace WebApi.Controllers
 {
+    /// <summary>
+    /// Контроллер управления продуктами
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class ProductsController : ControllerBase
@@ -26,6 +29,11 @@ namespace WebApi.Controllers
             _error = error;
         }
 
+        /// <summary>
+        ///  Добавление нового продукта
+        /// </summary>
+        /// <param name="request">Модель нового продукта</param>
+        /// <returns>NoContent</returns>
         [HttpPost]
         [ProducesResponseType(500)]
         [ProducesResponseType(503)]
@@ -51,26 +59,36 @@ namespace WebApi.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Получение списка всех продуктов
+        /// </summary>
+        /// <returns>Статус 200. Все продукты</returns>
         [HttpGet]
         [ProducesResponseType(500)]
         [ProducesResponseType(503)]
-        [ProducesResponseType(200, Type = typeof(ProductResponseDto))]
-        public async Task<IActionResult> GetAllProducts()
+        [ProducesResponseType(200, Type = typeof(ProductResponse))]
+        public async Task<ActionResult<List<ProductResponse>>> GetAllProducts()
         {
             if (!_productSwitchers.CurrentValue.GetServiceEnabled)
             {
                 return StatusCode(503, _error.DisabledService(nameof(GetAllProducts)));
             }
-            List<ProductResponseDto>? products;
+            List<ProductResponse>? productResponse;
             try
             {
-                products = await _productService.GetAll();
+                var productsDto = await _productService.GetAll();
+                productResponse = productsDto.Select(p => new ProductResponse
+                {
+                    Name = p.Name,
+                    Description = p.Description,
+                    CreatedDate = p.CreatedDate
+                }).ToList();
             }
             catch (Exception ex)
             {
                 return StatusCode(500, _error.DefaultHandle(nameof(GetAllProducts), ex));
             }
-            return Ok(products);
+            return Ok(productResponse);
         }
     }
 }

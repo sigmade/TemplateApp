@@ -1,9 +1,9 @@
-﻿namespace BusinessLayer.Products.Models
+﻿namespace WebApi.Models.Products
 {
     /// <summary>
     /// Модель добавления нового продукта
     /// </summary>
-    public class ProductDto
+    public class AddProductRequest
     {
         /// <summary>
         /// Наименование

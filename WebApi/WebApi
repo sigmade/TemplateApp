@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WebApi</name>
+    </assembly>
+    <members>
+        <member name="T:WebApi.Controllers.ProductsController">
+            <summary>
+            Контроллер управления продуктами
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.ProductsController.AddNewProduct(WebApi.Models.Products.AddProductRequest)">
+            <summary>
+             Добавление нового продукта
+            </summary>
+            <param name="request">Модель нового продукта</param>
+            <returns>NoContent</returns>
+        </member>
+        <member name="M:WebApi.Controllers.ProductsController.GetAllProducts">
+            <summary>
+            Получение списка всех продуктов
+            </summary>
+            <returns>Статус 200. Все продукты</returns>
+        </member>
+        <member name="T:WebApi.Models.Products.AddProductRequest">
+            <summary>
+            Модель добавления нового продукта
+            </summary>
+        </member>
+        <member name="P:WebApi.Models.Products.AddProductRequest.Name">
+            <summary>
+            Наименование
+            </summary>
+        </member>
+        <member name="P:WebApi.Models.Products.AddProductRequest.Description">
+            <summary>
+            Описание
+            </summary>
+        </member>
+        <member name="T:WebApi.Models.Products.ProductResponse">
+            <summary>
+            Модель отображения продуктов в списке
+            </summary>
+        </member>
+        <member name="P:WebApi.Models.Products.ProductResponse.Name">
+            <summary>
+            Наименование
+            </summary>
+        </member>
+        <member name="P:WebApi.Models.Products.ProductResponse.Description">
+            <summary>
+            Описание
+            </summary>
+        </member>
+        <member name="P:WebApi.Models.Products.ProductResponse.CreatedDate">
+            <summary>
+            Дата добавления
+            </summary>
+        </member>
+        <member name="T:WebApi.monitoring.Errors.ErrorHandler">
+            <summary>
+            Базовый обработчик ошибок
+            </summary>
+        </member>
+        <member name="M:WebApi.monitoring.Errors.ErrorHandler.DefaultHandle(System.String,System.Exception)">
+            <summary>
+            Стандартная обработка ошибки и запись в лог
+            </summary>
+            <param name="methodName"></param>
+            <param name="exception"></param>
+            <returns>
+            Отображаемый текст ошибки
+            </returns>
+        </member>
+        <member name="M:WebApi.monitoring.Errors.ErrorHandler.DisabledService(System.String)">
+            <summary>
+            Отображение ошибки при отключенном сервисе и запись в лог
+            </summary>
+            <param name="methodName"></param>
+            <returns>
+            Отображаемый текст ошибки
+            </returns>
+        </member>
+    </members>
+</doc>
