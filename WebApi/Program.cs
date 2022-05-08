@@ -52,8 +52,8 @@ builder.Services.AddSwaggerGen(options =>
         },
         License = new OpenApiLicense
         {
-            Name = "MIT",
-            Url = new Uri("https://en.wikipedia.org/wiki/MIT_License")
+            Name = "Docs",
+            Url = new Uri("http://localhost:8080/api/index.html")
         }
     });
 
