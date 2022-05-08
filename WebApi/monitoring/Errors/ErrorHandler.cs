@@ -1,5 +1,8 @@
 ﻿namespace WebApi.monitoring.Errors
 {
+    /// <summary>
+    /// Базовый обработчик ошибок
+    /// </summary>
     public class ErrorHandler
     {
         private readonly Serilog.ILogger _logger;
@@ -14,6 +17,14 @@
             return new Random().Next(100, 99999);
         }
 
+        /// <summary>
+        /// Стандартная обработка ошибки и запись в лог
+        /// </summary>
+        /// <param name="methodName"></param>
+        /// <param name="exception"></param>
+        /// <returns>
+        /// Отображаемый текст ошибки
+        /// </returns>
         public string DefaultHandle(string methodName, Exception exception)
         {
             var errorId = Id();
@@ -21,6 +32,13 @@
             return $"Ошибка операции. Код {errorId}";
         }
 
+        /// <summary>
+        /// Отображение ошибки при отключенном сервисе и запись в лог
+        /// </summary>
+        /// <param name="methodName"></param>
+        /// <returns>
+        /// Отображаемый текст ошибки
+        /// </returns>
         public string DisabledService(string methodName)
         {
             _logger.Information($"Call disabled service in: {methodName}");
