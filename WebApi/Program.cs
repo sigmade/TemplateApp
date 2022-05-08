@@ -1,5 +1,6 @@
 using DataLayer.EF;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.OpenApi.Models;
 using Prometheus;
 using Serilog;
@@ -53,7 +54,7 @@ builder.Services.AddSwaggerGen(options =>
         License = new OpenApiLicense
         {
             Name = "Docs",
-            Url = new Uri("http://localhost:8080/api/index.html")
+            Url = new Uri("http://localhost:5129/docs")
         }
     });
 
@@ -66,10 +67,18 @@ builder.Services.AppDataProviders();
 
 var app = builder.Build();
 
+
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseStaticFiles();
+    app.UseDirectoryBrowser(new DirectoryBrowserOptions
+    {
+        FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "docs")),
+        RequestPath = "/docs"
+    });
 }
 
 app.UseRouting();
