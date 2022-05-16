@@ -15,18 +15,19 @@ builder.Host
     .UseSerilog((context, configuration) =>
     {
         configuration.Enrich.FromLogContext()
-             .Enrich.WithMachineName()
-             .WriteTo.File(new RenderedCompactJsonFormatter(), "monitoring/Logs/logs.json")
-             .WriteTo.Console()
-             .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri("http://localhost:9200"))
-             {
-                 IndexFormat = $"{context.Configuration["ApplicationName"]}-logs-{context.HostingEnvironment.EnvironmentName?.ToLower().Replace(".", "-")}-{DateTime.UtcNow:yyyy-MM}",
-                 AutoRegisterTemplate = true,
-                 NumberOfShards = 2,
-                 NumberOfReplicas = 1
-             })
-             .Enrich.WithProperty("Environment", context.HostingEnvironment.EnvironmentName)
-             .ReadFrom.Configuration(context.Configuration);
+            .Enrich.WithMachineName()
+            .WriteTo.File(new RenderedCompactJsonFormatter(), "monitoring/Logs/logs.json")
+            .WriteTo.Console()
+            .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri("http://localhost:9200"))
+            {
+                IndexFormat =
+                    $"{context.Configuration["ApplicationName"]}-logs-{context.HostingEnvironment.EnvironmentName?.ToLower().Replace(".", "-")}-{DateTime.UtcNow:yyyy-MM}",
+                AutoRegisterTemplate = true,
+                NumberOfShards = 2,
+                NumberOfReplicas = 1
+            })
+            .Enrich.WithProperty("Environment", context.HostingEnvironment.EnvironmentName)
+            .ReadFrom.Configuration(context.Configuration);
     });
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -34,7 +35,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.Configure<ProductSwitchers>(
     builder.Configuration.GetSection("ProductSwitchers"));
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(connectionString));
+    options.UseSqlServer(connectionString));
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -58,7 +59,7 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 
-    var xmlFilename = $"WebApi";
+    var xmlFilename = "WebApi";
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });
 
@@ -66,7 +67,6 @@ builder.Services.AppServices();
 builder.Services.AppDataProviders();
 
 var app = builder.Build();
-
 
 
 if (app.Environment.IsDevelopment())

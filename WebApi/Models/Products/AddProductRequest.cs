@@ -1,17 +1,17 @@
 ﻿namespace WebApi.Models.Products
 {
     /// <summary>
-    /// Модель добавления нового продукта
+    ///     Модель добавления нового продукта
     /// </summary>
     public class AddProductRequest
     {
         /// <summary>
-        /// Наименование
+        ///     Наименование
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Описание
+        ///     Описание
         /// </summary>
         public string Description { get; set; }
     }

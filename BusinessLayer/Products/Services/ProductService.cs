@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Products.Models;
 using DataLayer.Products.DataProvider;
+using DataLayer.Products.Models;
 
 namespace BusinessLayer.Products.Services
 {
@@ -14,7 +15,7 @@ namespace BusinessLayer.Products.Services
 
         public async Task AddNew(ProductDto product)
         {
-            await _productDataProvider.SaveNew(new()
+            await _productDataProvider.SaveNew(new Product
             {
                 Name = product.Name,
                 Description = product.Description
