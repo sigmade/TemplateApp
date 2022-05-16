@@ -6,109 +6,159 @@
     <members>
         <member name="T:WebApi.Controllers.ProductsController">
             <summary>
-            Контроллер управления продуктами
+                Контроллер управления продуктами
             </summary>
         </member>
         <member name="M:WebApi.Controllers.ProductsController.AddNewProduct(WebApi.Models.Products.AddProductRequest)">
-             <summary>
-              Добавление нового продукта
-             </summary>
-             <remarks>
-             Пример запроса:
-            
-                 {
-                    "name": "Iphone",
-                    "description": "Iphone X"
-                 }
-            
-             </remarks>
-             <param name="request">Модель нового продукта</param>
-             <returns>Статус 204 NoContent</returns>
-             <response code="500">Прочие ошибки сервера</response>
-             <response code="503">Принудительно выключен сервис</response>
-             <response code="204">Успешный ответ без возвращаемого значения</response>
+            <summary>
+                Добавление нового продукта
+            </summary>
+            <remarks>
+                Пример запроса:
+                {
+                "name": "Iphone",
+                "description": "Iphone X"
+                }
+            </remarks>
+            <param name="request">Модель нового продукта</param>
+            <returns>Статус 204 NoContent</returns>
+            <response code="500">Прочие ошибки сервера</response>
+            <response code="503">Принудительно выключен сервис</response>
+            <response code="204">Успешный ответ без возвращаемого значения</response>
         </member>
         <member name="M:WebApi.Controllers.ProductsController.GetAllProducts">
             <summary>
-            Получение списка всех продуктов
+                Получение списка всех продуктов
             </summary>
             <returns>Статус 200. Все продукты</returns>
             <response code="500">Прочие ошибки сервера</response>
             <response code="503">Принудительно выключен сервис</response>
             <response code="200">Возвращает список всех продуктов</response>
         </member>
+        <member name="T:WebApi.Controllers.UsersController">
+            <summary>
+                Контроллер управления пользователями
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.UsersController.AddNewUser(WebApi.Models.Users.AddUserRequest)">
+            <summary>
+                Добавление нового пользователя
+            </summary>
+            <remarks>
+                Пример запроса:
+                {
+                "Login": "7073332211",
+                "Password": "Super|-|ardPass#ord"
+                }
+            </remarks>
+            <param name="request">Модель нового пользователя</param>
+            <returns>Статус 204 NoContent</returns>
+            <response code="500">Прочие ошибки сервера</response>
+            <response code="503">Принудительно выключен сервис</response>
+            <response code="204">Успешный ответ без возвращаемого значения</response>
+        </member>
         <member name="T:WebApi.Models.Products.AddProductRequest">
             <summary>
-            Модель добавления нового продукта
+                Модель добавления нового продукта
             </summary>
         </member>
         <member name="P:WebApi.Models.Products.AddProductRequest.Name">
             <summary>
-            Наименование
+                Наименование
             </summary>
         </member>
         <member name="P:WebApi.Models.Products.AddProductRequest.Description">
             <summary>
-            Описание
+                Описание
             </summary>
         </member>
         <member name="T:WebApi.Models.Products.ProductResponse">
             <summary>
-            Модель отображения продуктов в списке
+                Модель отображения продуктов в списке
             </summary>
         </member>
         <member name="P:WebApi.Models.Products.ProductResponse.Name">
             <summary>
-            Наименование
+                Наименование
             </summary>
         </member>
         <member name="P:WebApi.Models.Products.ProductResponse.Description">
             <summary>
-            Описание
+                Описание
             </summary>
         </member>
         <member name="P:WebApi.Models.Products.ProductResponse.CreatedDate">
             <summary>
-            Дата добавления
+                Дата добавления
+            </summary>
+        </member>
+        <member name="T:WebApi.Models.Users.AddUserRequest">
+            <summary>
+            Модель добавления нового пользователя
+            </summary>
+        </member>
+        <member name="P:WebApi.Models.Users.AddUserRequest.Login">
+            <summary>
+            Логин пользователя (номер телефона)
+            </summary>
+        </member>
+        <member name="P:WebApi.Models.Users.AddUserRequest.Password">
+            <summary>
+            Пароль пользователя
             </summary>
         </member>
         <member name="T:WebApi.monitoring.Errors.ErrorHandler">
             <summary>
-            Базовый обработчик ошибок
+                Базовый обработчик ошибок
             </summary>
         </member>
         <member name="M:WebApi.monitoring.Errors.ErrorHandler.DefaultHandle(System.String,System.Exception)">
             <summary>
-            Стандартная обработка ошибки и запись в лог
+                Стандартная обработка ошибки и запись в лог
             </summary>
             <param name="methodName"></param>
             <param name="exception"></param>
             <returns>
-            Отображаемый текст ошибки
+                Отображаемый текст ошибки
             </returns>
         </member>
         <member name="M:WebApi.monitoring.Errors.ErrorHandler.DisabledService(System.String)">
             <summary>
-            Отображение ошибки при отключенном сервисе и запись в лог
+                Отображение ошибки при отключенном сервисе и запись в лог
             </summary>
             <param name="methodName"></param>
             <returns>
-            Отображаемый текст ошибки
+                Отображаемый текст ошибки
             </returns>
         </member>
         <member name="T:WebApi.monitoring.Switchers.ProductSwitchers">
             <summary>
-            Свитчеры позволяют отключать часть функционала, н-р при недоступности определенного сервиса
+                Свитчеры позволяют отключать часть функционала, н-р при недоступности определенного сервиса
             </summary>
         </member>
         <member name="P:WebApi.monitoring.Switchers.ProductSwitchers.AddServiceEnabed">
             <summary>
-            Доступен ли сервис добавления продукта
+                Доступен ли сервис добавления продукта
             </summary>
         </member>
         <member name="P:WebApi.monitoring.Switchers.ProductSwitchers.GetServiceEnabled">
             <summary>
-            Доступен ли сервис получения продуктов
+                Доступен ли сервис получения продуктов
+            </summary>
+        </member>
+        <member name="T:WebApi.monitoring.Switchers.UserSwitchers">
+            <summary>
+                Свитчеры позволяют отключать часть функционала, н-р при недоступности определенного сервиса
+            </summary>
+        </member>
+        <member name="P:WebApi.monitoring.Switchers.UserSwitchers.AddServiceEnabed">
+            <summary>
+                Доступен ли сервис добавления пользователя
+            </summary>
+        </member>
+        <member name="P:WebApi.monitoring.Switchers.UserSwitchers.GetServiceEnabled">
+            <summary>
+                Доступен ли сервис получения пользователей
             </summary>
         </member>
     </members>

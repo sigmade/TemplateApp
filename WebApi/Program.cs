@@ -34,6 +34,8 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 
 builder.Services.Configure<ProductSwitchers>(
     builder.Configuration.GetSection("ProductSwitchers"));
+builder.Services.Configure<UserSwitchers>(
+    builder.Configuration.GetSection("UserSwitchers"));
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 

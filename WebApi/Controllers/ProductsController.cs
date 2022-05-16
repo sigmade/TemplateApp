@@ -9,16 +9,16 @@ using WebApi.monitoring.Switchers;
 namespace WebApi.Controllers
 {
     /// <summary>
-    /// Контроллер управления продуктами
+    ///     Контроллер управления продуктами
     /// </summary>
     [Route("api/[controller]")]
     [Produces("application/json")]
     [ApiController]
     public class ProductsController : ControllerBase
     {
+        private readonly ErrorHandler _error;
         private readonly IProductService _productService;
         private readonly IOptionsMonitor<ProductSwitchers> _productSwitchers;
-        private readonly ErrorHandler _error;
 
         public ProductsController(
             IProductService productService,
@@ -31,16 +31,14 @@ namespace WebApi.Controllers
         }
 
         /// <summary>
-        ///  Добавление нового продукта
+        ///     Добавление нового продукта
         /// </summary>
         /// <remarks>
-        /// Пример запроса:
-        ///
+        ///     Пример запроса:
         ///     {
-        ///        "name": "Iphone",
-        ///        "description": "Iphone X"
+        ///     "name": "Iphone",
+        ///     "description": "Iphone X"
         ///     }
-        ///
         /// </remarks>
         /// <param name="request">Модель нового продукта</param>
         /// <returns>Статус 204 NoContent</returns>
@@ -57,9 +55,10 @@ namespace WebApi.Controllers
             {
                 return StatusCode(503, _error.DisabledService(nameof(AddNewProduct)));
             }
+
             try
             {
-                await _productService.AddNew(new()
+                await _productService.AddNew(new ProductDto
                 {
                     Name = request.Name,
                     Description = request.Description
@@ -69,11 +68,12 @@ namespace WebApi.Controllers
             {
                 return StatusCode(500, _error.DefaultHandle(nameof(AddNewProduct), ex));
             }
+
             return NoContent();
         }
 
         /// <summary>
-        /// Получение списка всех продуктов
+        ///     Получение списка всех продуктов
         /// </summary>
         /// <returns>Статус 200. Все продукты</returns>
         /// <response code="500">Прочие ошибки сервера</response>
@@ -89,6 +89,7 @@ namespace WebApi.Controllers
             {
                 return StatusCode(503, _error.DisabledService(nameof(GetAllProducts)));
             }
+
             List<ProductResponse>? productResponse;
             try
             {
@@ -104,6 +105,7 @@ namespace WebApi.Controllers
             {
                 return StatusCode(500, _error.DefaultHandle(nameof(GetAllProducts), ex));
             }
+
             return Ok(productResponse);
         }
     }

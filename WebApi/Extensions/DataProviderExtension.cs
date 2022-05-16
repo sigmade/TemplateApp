@@ -1,4 +1,5 @@
 ﻿using DataLayer.Products.DataProvider;
+using DataLayer.Users.DataProvider;
 
 namespace WebApi.Extensions
 {
@@ -7,6 +8,7 @@ namespace WebApi.Extensions
         public static IServiceCollection AppDataProviders(this IServiceCollection services)
         {
             services.AddScoped<IProductDataProvider, ProductDataProvider>();
+            services.AddScoped<IUserDataProvider, UserDataProvider>();
 
             return services;
         }
