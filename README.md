@@ -13,6 +13,7 @@ https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swas
 in project file
 <GenerateDocumentationFile>true</GenerateDocumentationFile>
 <DocumentationFile>WebApi</DocumentationFile>
+<IncludeOpenAPIAnalyzers>true</IncludeOpenAPIAnalyzers>
 
 in startup/program
 

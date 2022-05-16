@@ -12,6 +12,7 @@ namespace WebApi.Controllers
     /// Контроллер управления продуктами
     /// </summary>
     [Route("api/[controller]")]
+    [Produces("application/json")]
     [ApiController]
     public class ProductsController : ControllerBase
     {
@@ -32,8 +33,20 @@ namespace WebApi.Controllers
         /// <summary>
         ///  Добавление нового продукта
         /// </summary>
+        /// <remarks>
+        /// Пример запроса:
+        ///
+        ///     {
+        ///        "name": "Iphone",
+        ///        "description": "Iphone X"
+        ///     }
+        ///
+        /// </remarks>
         /// <param name="request">Модель нового продукта</param>
-        /// <returns>NoContent</returns>
+        /// <returns>Статус 204 NoContent</returns>
+        /// <response code="500">Прочие ошибки сервера</response>
+        /// <response code="503">Принудительно выключен сервис</response>
+        /// <response code="204">Успешный ответ без возвращаемого значения</response>
         [HttpPost]
         [ProducesResponseType(500)]
         [ProducesResponseType(503)]
@@ -63,6 +76,9 @@ namespace WebApi.Controllers
         /// Получение списка всех продуктов
         /// </summary>
         /// <returns>Статус 200. Все продукты</returns>
+        /// <response code="500">Прочие ошибки сервера</response>
+        /// <response code="503">Принудительно выключен сервис</response>
+        /// <response code="200">Возвращает список всех продуктов</response>
         [HttpGet]
         [ProducesResponseType(500)]
         [ProducesResponseType(503)]

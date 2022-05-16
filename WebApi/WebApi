@@ -10,17 +10,32 @@
             </summary>
         </member>
         <member name="M:WebApi.Controllers.ProductsController.AddNewProduct(WebApi.Models.Products.AddProductRequest)">
-            <summary>
-             Добавление нового продукта
-            </summary>
-            <param name="request">Модель нового продукта</param>
-            <returns>NoContent</returns>
+             <summary>
+              Добавление нового продукта
+             </summary>
+             <remarks>
+             Пример запроса:
+            
+                 {
+                    "name": "Iphone",
+                    "description": "Iphone X"
+                 }
+            
+             </remarks>
+             <param name="request">Модель нового продукта</param>
+             <returns>Статус 204 NoContent</returns>
+             <response code="500">Прочие ошибки сервера</response>
+             <response code="503">Принудительно выключен сервис</response>
+             <response code="204">Успешный ответ без возвращаемого значения</response>
         </member>
         <member name="M:WebApi.Controllers.ProductsController.GetAllProducts">
             <summary>
             Получение списка всех продуктов
             </summary>
             <returns>Статус 200. Все продукты</returns>
+            <response code="500">Прочие ошибки сервера</response>
+            <response code="503">Принудительно выключен сервис</response>
+            <response code="200">Возвращает список всех продуктов</response>
         </member>
         <member name="T:WebApi.Models.Products.AddProductRequest">
             <summary>
@@ -80,6 +95,21 @@
             <returns>
             Отображаемый текст ошибки
             </returns>
+        </member>
+        <member name="T:WebApi.monitoring.Switchers.ProductSwitchers">
+            <summary>
+            Свитчеры позволяют отключать часть функционала, н-р при недоступности определенного сервиса
+            </summary>
+        </member>
+        <member name="P:WebApi.monitoring.Switchers.ProductSwitchers.AddServiceEnabed">
+            <summary>
+            Доступен ли сервис добавления продукта
+            </summary>
+        </member>
+        <member name="P:WebApi.monitoring.Switchers.ProductSwitchers.GetServiceEnabled">
+            <summary>
+            Доступен ли сервис получения продуктов
+            </summary>
         </member>
     </members>
 </doc>

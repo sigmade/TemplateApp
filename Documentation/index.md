@@ -1,4 +1,10 @@
-# This is the **HOMEPAGE**.
-Refer to [Markdown](http://daringfireball.net/projects/markdown/) for how to write markdown files.
-## Quick Start Notes:
-1. Add images to the *images* folder if the file is referencing an image.
+Main [Documentation](http://localhost:8080/api/index.html) documentation
+
+<img src="\images\apidoc.jpg">
+
+
+
+There is also [Swagger](http://localhost:5129/swagger/index.html) documentation
+
+
+<img src="\images\swagger.jpg">

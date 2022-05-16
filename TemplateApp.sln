@@ -12,6 +12,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{FFC2D18C-D7E6-4956-9BBC-7F951B3753E0}"
 	ProjectSection(SolutionItems) = preProject
 		Documentation\docfx.json = Documentation\docfx.json
+		Documentation\index.md = Documentation\index.md
 		README.md = README.md
 		Documentation\toc.yml = Documentation\toc.yml
 	EndProjectSection
