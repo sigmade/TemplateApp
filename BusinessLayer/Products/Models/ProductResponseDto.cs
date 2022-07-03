@@ -3,7 +3,7 @@
     /// <summary>
     /// Модель отображения продуктов в списке
     /// </summary>
-    public class ProductResponseDto
+    public sealed class ProductResponseDto
     {
         /// <summary>
         /// Наименование

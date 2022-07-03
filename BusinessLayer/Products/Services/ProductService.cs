@@ -3,7 +3,7 @@ using DataLayer.Products.DataProvider;
 
 namespace BusinessLayer.Products.Services
 {
-    public class ProductService : IProductService
+    public sealed class ProductService : IProductService
     {
         private readonly IProductDataProvider _productDataProvider;
 

@@ -8,7 +8,7 @@ namespace WebApi.Extensions
         public static IServiceCollection AppServices(this IServiceCollection services)
         {
             services.AddScoped<IProductService, ProductService>();
-            services.AddScoped<ErrorHandler>();
+            services.AddSingleton<IErrorHandler, ErrorHandler>();
 
             return services;
         }

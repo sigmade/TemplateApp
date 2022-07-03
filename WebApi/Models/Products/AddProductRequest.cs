@@ -3,7 +3,7 @@
     /// <summary>
     /// Модель добавления нового продукта
     /// </summary>
-    public class AddProductRequest
+    public sealed class AddProductRequest
     {
         /// <summary>
         /// Наименование

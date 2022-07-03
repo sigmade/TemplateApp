@@ -3,7 +3,7 @@
     /// <summary>
     /// Базовый обработчик ошибок
     /// </summary>
-    public class ErrorHandler
+    public sealed class ErrorHandler : IErrorHandler
     {
         private readonly Serilog.ILogger _logger;
 
@@ -12,6 +12,10 @@
             _logger = logger;
         }
 
+        /// <summary>
+        /// Генерация кода ошибка для отображения пользователю и запись в лог
+        /// </summary>
+        /// <returns>Код ошибки</returns>
         public static int Id()
         {
             return new Random().Next(100, 99999);
@@ -43,6 +47,20 @@
         {
             _logger.Information($"Call disabled service in: {methodName}");
             return $"Сервис временно не доступен, попробуйте позже";
+        }
+
+        /// <summary>
+        /// Отображение ошибки при невалидных входных данных
+        /// </summary>
+        /// <param name="methodName"></param>
+        /// <returns>
+        /// Отображаемый текст ошибки
+        /// </returns>
+        public string InputData(string methodName, Exception exception)
+        {
+            var errorId = Id();
+            _logger.Error($"No valid data in {methodName}. ErrorId: {errorId}. Message: {exception.Message}. Trace: {exception.StackTrace}");
+            return $"Некорректные входных данные. Код ошибки {errorId}";
         }
     }
 }

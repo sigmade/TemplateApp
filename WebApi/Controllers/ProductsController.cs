@@ -1,5 +1,4 @@
-﻿using BusinessLayer.Products.Models;
-using BusinessLayer.Products.Services;
+﻿using BusinessLayer.Products.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using WebApi.Models.Products;
@@ -18,12 +17,12 @@ namespace WebApi.Controllers
     {
         private readonly IProductService _productService;
         private readonly IOptionsMonitor<ProductSwitchers> _productSwitchers;
-        private readonly ErrorHandler _error;
+        private readonly IErrorHandler _error;
 
         public ProductsController(
             IProductService productService,
             IOptionsMonitor<ProductSwitchers> productSwitchers,
-            ErrorHandler error)
+            IErrorHandler error)
         {
             _productService = productService;
             _productSwitchers = productSwitchers;

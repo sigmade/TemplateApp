@@ -77,6 +77,12 @@
             Базовый обработчик ошибок
             </summary>
         </member>
+        <member name="M:WebApi.monitoring.Errors.ErrorHandler.Id">
+            <summary>
+            Генерация кода ошибка для отображения пользователю и запись в лог
+            </summary>
+            <returns>Код ошибки</returns>
+        </member>
         <member name="M:WebApi.monitoring.Errors.ErrorHandler.DefaultHandle(System.String,System.Exception)">
             <summary>
             Стандартная обработка ошибки и запись в лог
@@ -90,6 +96,15 @@
         <member name="M:WebApi.monitoring.Errors.ErrorHandler.DisabledService(System.String)">
             <summary>
             Отображение ошибки при отключенном сервисе и запись в лог
+            </summary>
+            <param name="methodName"></param>
+            <returns>
+            Отображаемый текст ошибки
+            </returns>
+        </member>
+        <member name="M:WebApi.monitoring.Errors.ErrorHandler.InputData(System.String,System.Exception)">
+            <summary>
+            Отображение ошибки при невалидных входных данных
             </summary>
             <param name="methodName"></param>
             <returns>

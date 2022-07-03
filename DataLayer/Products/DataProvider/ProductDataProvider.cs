@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataLayer.Products.DataProvider
 {
-    public class ProductDataProvider : IProductDataProvider
+    public sealed class ProductDataProvider : IProductDataProvider
     {
         private readonly ApplicationDbContext _dbContext;
 
