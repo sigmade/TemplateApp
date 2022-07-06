@@ -1,6 +1,6 @@
 ﻿using DataLayer.Products.Models;
 
-namespace DataLayer.Products.DataProvider
+namespace DataLayer.Products.DataProviders
 {
     public interface IProductDataProvider
     {

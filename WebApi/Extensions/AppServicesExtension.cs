@@ -7,7 +7,19 @@ namespace WebApi.Extensions
     {
         public static IServiceCollection AppServices(this IServiceCollection services)
         {
-            services.AddScoped<IProductService, ProductService>();
+            var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
+            switch (env)
+            {
+                case "StubBusinessLayer":
+                    services.AddScoped<IProductService, StubProductService>();
+                    break;
+
+                default:
+                    services.AddScoped<IProductService, ProductService>();
+                    break;
+            }
+
             services.AddSingleton<IErrorHandler, ErrorHandler>();
 
             return services;

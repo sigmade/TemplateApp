@@ -2,7 +2,7 @@
 using DataLayer.Products.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace DataLayer.Products.DataProvider
+namespace DataLayer.Products.DataProviders
 {
     public sealed class ProductDataProvider : IProductDataProvider
     {

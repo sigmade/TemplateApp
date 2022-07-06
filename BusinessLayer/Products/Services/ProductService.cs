@@ -1,5 +1,5 @@
 ﻿using BusinessLayer.Products.Models;
-using DataLayer.Products.DataProvider;
+using DataLayer.Products.DataProviders;
 
 namespace BusinessLayer.Products.Services
 {

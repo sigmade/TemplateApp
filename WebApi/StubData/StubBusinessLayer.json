@@ -1,0 +1,14 @@
+{
+  "Products": [
+    {
+      "Name": "SBL_Apple",
+      "Description": "SomeDescription",
+      "CreatedDate": "2022-07-06"
+    },
+    {
+      "Name": "SBL_Samsung",
+      "Description": "SomeDescription",
+      "CreatedDate": "2022-07-06"
+    }
+  ]
+}

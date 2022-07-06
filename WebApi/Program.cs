@@ -10,8 +10,16 @@ using WebApi.Extensions;
 using WebApi.monitoring.Switchers;
 
 var builder = WebApplication.CreateBuilder(args);
+var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
 builder.Host
+    .ConfigureAppConfiguration((context, builder) =>
+    {
+        builder.SetBasePath(AppContext.BaseDirectory)
+            .AddJsonFile("appsettings.json", false, true)
+            .AddJsonFile($"appsettings.{env}.json", true, true)
+            .AddEnvironmentVariables();
+    })
     .UseSerilog((context, configuration) =>
     {
         configuration.Enrich.FromLogContext()
@@ -67,7 +75,7 @@ builder.Services.AppDataProviders();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+if (!app.Environment.IsProduction())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
